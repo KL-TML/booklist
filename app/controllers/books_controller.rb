@@ -1,20 +1,20 @@
 class BooksController < ApplicationController
-
   def index
-    @books = Books.all
+    @books = Book.all
 
     respond_to do |format|
-      format.text {render }
-    end
+      format.json do
+        render json: { books: @books }
+      end
 
-    format.text do
-      render: index
-    end
 
-    format.csv do
-      render plain: Book.generate_csv(book_list)
-    end
+      format.text do
+        render :index
+      end
 
+      format.csv do
+        render plain: Book.generate_csv(@books)
+      end
+    end
   end
-
 end
